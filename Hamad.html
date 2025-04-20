@@ -1,0 +1,176 @@
+import { useState } from "react";
+import "./App.css";
+
+const questions = [
+  {
+    type: "mcq",
+    question: "ما نوع الموجات الكهرومغناطيسية؟",
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اختبار الموجات الكهرومغناطيسية</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .flex {
+      display: flex;
+      gap: 10px;
+    }
+    .flex button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="quiz"></div>
+
+<script>
+  const questions = [
+    {
+      type: "mcq",
+      question: "ما نوع الموجات الكهرومغناطيسية؟",
+      options: ["طولية", "مستعرضة", "مزيج من الطولية والمستعرضة"],
+      answer: "مستعرضة",
+    },
+    {
+      type: "mcq",
+      question: "تتحرك الموجات الكهرومغناطيسية في الفراغ بسرعة:",
+      options: ["2 × 10^8 م/ث", "3 × 10^8 م/ث", "1 × 10^6 م/ث"],
+      answer: "3 × 10^8 م/ث",
+    },
+    {
+      type: "mcq",
+      question: "عند انتقال الموجة من الهواء إلى الماء:",
+      options: ["يتغير ترددها", "يتغير طولها الموجي وسرعتها", "يتغير مصدرها"],
+      answer: "يتغير طولها الموجي وسرعتها",
+    },
+    {
+      type: "mcq",
+      question: "العلاقة الصحيحة بين السرعة والتردد والطول الموجي:",
+      options: [
+        "السرعة = التردد + الطول الموجي",
+        "السرعة = التردد × الطول الموجي",
+        "السرعة = الطول الموجي ÷ التردد"
+      ],
+      answer: "السرعة = التردد × الطول الموجي",
+    },
+    {
+      type: "mcq",
+      question: "تتكون الموجات الكهرومغناطيسية من:",
+      options: ["شحنات كهربائية", "موجات صوتية", "مجالات كهربائية ومغناطيسية متعامدة"],
+      answer: "مجالات كهربائية ومغناطيسية متعامدة",
+    },
+    {
+      type: "truefalse",
+      question: "تنتقل الموجات الكهرومغناطيسية فقط في المواد الصلبة.",
+      answer: false,
+    },
+    {
+      type: "truefalse",
+      question: "لا يتغير تردد الموجة عند الانتقال بين الأوساط.",
+      answer: true,
+    },
+    {
+      type: "truefalse",
+      question: "الموجات الكهرومغناطيسية تخضع لقوانين الانعكاس والانكسار.",
+      answer: true,
+    },
+    {
+      type: "truefalse",
+      question: "يمكن للمادة أن تمتص أو تعكس أو تنكسر الموجات الكهرومغناطيسية.",
+      answer: true,
+    },
+    {
+      type: "truefalse",
+      question: "الموجات الكهرومغناطيسية تحمل شحنات كهربائية.",
+      answer: false,
+    },
+  ];
+
+  let current = 0;
+  let score = 0;
+
+  function showQuestion() {
+    const q = questions[current];
+    const container = document.getElementById("quiz");
+    container.innerHTML = `
+      <h2>سؤال ${current + 1}</h2>
+      <p>${q.question}</p>
+    `;
+
+    if (q.type === "mcq") {
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => handleAnswer(option);
+        container.appendChild(btn);
+      });
+    } else {
+      const btnTrue = document.createElement("button");
+      btnTrue.textContent = "صح";
+      btnTrue.onclick = () => handleAnswer("true");
+
+      const btnFalse = document.createElement("button");
+      btnFalse.textContent = "خطأ";
+      btnFalse.onclick = () => handleAnswer("false");
+
+      const btnContainer = document.createElement("div");
+      btnContainer.className = "flex";
+      btnContainer.appendChild(btnTrue);
+      btnContainer.appendChild(btnFalse);
+      container.appendChild(btnContainer);
+    }
+  }
+
+  function handleAnswer(selected) {
+    const q = questions[current];
+    const correct =
+      q.type === "mcq"
+        ? selected === q.answer
+        : (selected === "true") === q.answer;
+
+    if (correct) score++;
+
+    current++;
+    if (current < questions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const container = document.getElementById("quiz");
+    container.innerHTML = `
+      <h2>انتهى الاختبار!</h2>
+      <p>درجتك: ${score} من ${questions.length}</p>
+    `;
+  }
+
+  // تشغيل أول سؤال
+  showQuestion();
+</script>
+
+</body>
+</html>
